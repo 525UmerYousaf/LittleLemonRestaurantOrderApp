@@ -93,13 +93,16 @@ struct DishRow: View {
             HStack {
                 Text("\(dish.title) - $\(dish.price)")
                 Spacer()
-                AsyncImage(url: URL(string: dish.image ?? "")) { image in
-                    image.resizable()
-                         .scaledToFit()
-                         .frame(width: 50, height: 50)
-                         .clipShape(Circle())
-                } placeholder: {
-                    ProgressView()
+                if let imageUrl = dish.image,
+                   let url = URL(string: imageUrl) {
+                    AsyncImage(url: url) { image in
+                        image.resizable()
+                            .scaledToFit()
+                            .frame(width: 50, height: 50)
+                            .clipShape(Circle())
+                    } placeholder: {
+                        ProgressView()
+                    }
                 }
             }
         }

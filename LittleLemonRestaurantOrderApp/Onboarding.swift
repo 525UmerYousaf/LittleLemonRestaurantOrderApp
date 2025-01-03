@@ -18,7 +18,8 @@ struct OnboardingView: View {
     @State var firstNameInput: String = ""
     @State var lastNameInput: String = ""
     @State var emailInput: String = ""
-    @State var isLoggedIn: Bool = false
+//    @State var isLoggedIn: Bool = false
+    @State var isLoggedIn: Bool = UserDefaults.standard.bool(forKey: kIsLoggedIn)
     
     var body: some View {
         NavigationView{
