@@ -8,11 +8,14 @@ import SwiftUI
 
 
 struct HomeScreenView: View {
+    
+    let persistence = PersistenceController.shared
+    
     var body: some View {
         TabView{
             MenuScreenView().tabItem({
                 Label("Menu", systemImage: "square.and.arrow.up")
-            })
+            }).environment(\.managedObjectContext, persistence.container.viewContext)
             UserProfileScreenView().tabItem({
                 Label("Profile", systemImage: "person.circle")
             })
