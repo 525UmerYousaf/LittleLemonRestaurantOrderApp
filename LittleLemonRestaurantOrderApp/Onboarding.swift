@@ -23,33 +23,51 @@ struct OnboardingView: View {
     
     var body: some View {
         NavigationView{
-            VStack{
+            VStack (spacing: 0){
                 NavigationLink(destination: HomeScreenView(), isActive: $isLoggedIn) {
                     EmptyView()
                 }
-                TextField("First Name", text: $firstNameInput)
-                TextField("Last Name", text: $lastNameInput)
-                TextField("Email", text: $emailInput)
-                Button("Register") {
-                    if !firstNameInput.isEmpty && !lastNameInput.isEmpty && !emailInput.isEmpty {
-                        if isValidEmail(emailInput) {
-                            UserDefaults.standard.set($firstNameInput, forKey: kFirstName)
-                            UserDefaults.standard.set($lastNameInput, forKey: kLastName)
-                            UserDefaults.standard.set($emailInput, forKey: kEmail)
-                            UserDefaults.standard.set(true, forKey: kIsLoggedIn)
-                            isLoggedIn = true
-                            print("User registered successfully!")
+                Image("Logo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150, height: 150)
+                    .padding()
+                Spacer(minLength: 20)
+                ScrollView {
+                    VStack {
+                        TextField("First Name", text: $firstNameInput).font(.title2)
+                            .bold()
+                            .foregroundStyle(Color("CustomGreen"))
+                            .multilineTextAlignment(.leading)
+                        TextField("Last Name", text: $lastNameInput).font(.title2)
+                            .bold()
+                            .foregroundStyle(Color("CustomGreen"))
+                            .multilineTextAlignment(.leading)
+                        TextField("Email", text: $emailInput).font(.title2)
+                            .bold()
+                            .foregroundStyle(Color("CustomGreen"))
+                            .multilineTextAlignment(.leading)
+                        Button("Register") {
+                            if !firstNameInput.isEmpty && !lastNameInput.isEmpty && !emailInput.isEmpty {
+                                if isValidEmail(emailInput) {
+                                    UserDefaults.standard.set($firstNameInput, forKey: kFirstName)
+                                    UserDefaults.standard.set($lastNameInput, forKey: kLastName)
+                                    UserDefaults.standard.set($emailInput, forKey: kEmail)
+                                    UserDefaults.standard.set(true, forKey: kIsLoggedIn)
+                                    isLoggedIn = true
+                                    print("User registered successfully!")
+                                }
+                            } else {
+                                print("Please fill in all fields.")
+                            }
                         }
-                    } else {
-                        print("Please fill in all fields.")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
                     }
                 }
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(8)
             }
-            .padding()
             .onAppear(){
                 if UserDefaults.standard.bool(forKey: kIsLoggedIn) {
                     isLoggedIn = true

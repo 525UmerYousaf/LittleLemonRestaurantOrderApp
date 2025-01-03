@@ -101,7 +101,7 @@ struct DishRow: View {
                             .frame(width: 50, height: 50)
                             .clipShape(Circle())
                     } placeholder: {
-                        ProgressView()
+                        ProgressView().frame(height: 50)
                     }
                 }
             }
